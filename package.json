@@ -1,0 +1,16 @@
+{
+    "name": "neon-arrow-infinity",
+    "version": "1.0.0",
+    "description": "Neon Arrow Infinity - PWA Game",
+    "main": "index.html",
+    "scripts": {
+        "start": "echo 'Static Site - No Build Script needed'"
+    },
+    "keywords": [
+        "game",
+        "canvas",
+        "pwa"
+    ],
+    "author": "User",
+    "license": "MIT"
+}

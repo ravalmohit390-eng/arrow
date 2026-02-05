@@ -54,6 +54,7 @@ const ui = {
     shopClose: document.getElementById('shop-close-btn'),
     restartBtn: document.getElementById('restart-btn'),
     shopBtn2: document.getElementById('shop-open-btn-2'),
+    menuBtn: document.getElementById('menu-btn'),
     fireBtn: document.getElementById('fire-btn'),
     menuScore: document.getElementById('menu-highscore'),
     menuCoins: document.getElementById('menu-coins'),
@@ -75,6 +76,7 @@ function init() {
     ui.shopBtn.onclick = openShop;
     ui.shopBtn2.onclick = openShop;
     ui.shopClose.onclick = closeShop;
+    ui.menuBtn.onclick = goToMenu;
 
     // Input
     window.addEventListener('keydown', e => {
@@ -591,6 +593,12 @@ window.doBuy = (k) => {
 window.doEquip = (k) => {
     player.equipped = k;
     saveData(); renderShop();
+}
+
+function goToMenu() {
+    ui.gameover.classList.remove('active');
+    ui.start.classList.add('active');
+    updateMenuStats();
 }
 
 // Start

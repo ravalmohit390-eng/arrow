@@ -110,6 +110,12 @@ canvas {
     pointer-events: auto;
 }
 
+#shop-screen {
+    z-index: 30;
+}
+
+/* Ensure Shop is above Game Over */
+
 .glow-panel {
     background: var(--panel-bg);
     border: 1px solid var(--primary);

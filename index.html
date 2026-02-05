@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neon Arrow: Infinity</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+    <div id="game-container">
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-item left">
+                <div class="label">SCORE</div>
+                <div id="score-display">0</div>
+            </div>
+
+            <div class="hud-center">
+                <div id="message-display"></div>
+            </div>
+
+            <div class="hud-right">
+                <div class="hud-item coin-item">
+                    <span class="coin-icon">💎</span>
+                    <span id="coin-display">0</span>
+                </div>
+                <div class="hud-item life-item">
+                    <div id="lives-display">❤️❤️❤️</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="overlay active">
+            <div class="content glow-panel">
+                <h1 class="title">NEON<br><span class="highlight">ARROW</span></h1>
+                <p class="instruction">SURVIVE. COLLECT. UPGRADE.</p>
+                <div class="stats-preview">
+                    <span>BEST: <b id="menu-highscore">0</b></span>
+                    <span>💎 <b id="menu-coins">0</b></span>
+                </div>
+                <div class="btn-group vertical">
+                    <button id="start-btn" class="primary-btn pulse">IGNITE ENGINE</button>
+                    <button id="shop-open-btn" class="secondary-btn">ACCESS ARMORY</button>
+                    <button id="install-btn" class="secondary-btn"
+                        style="display:none; border-color:#0f0; color:#0f0;">⬇ INSTALL APP</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Screen -->
+        <div id="shop-screen" class="overlay">
+            <div class="content shop-content glow-panel">
+                <div class="shop-header">
+                    <h2 class="subtitle">ARMORY</h2>
+                    <div class="shop-wallet">💎 <span id="shop-coins-display">0</span></div>
+                </div>
+                <div class="shop-body">
+                    <div id="shop-grid" class="shop-grid">
+                        <!-- Items -->
+                    </div>
+                </div>
+                <button id="shop-close-btn" class="secondary-btn">EXIT</button>
+            </div>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div id="mobile-controls">
+            <div class="control-hint">TOUCH & DRAG TO STEER</div>
+            <button id="fire-btn" class="fire-btn">🚀</button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="overlay">
+            <div class="content glow-panel">
+                <h2 class="subtitle fail">SYSTEM FAILURE</h2>
+                <div class="result-grid">
+                    <div class="res-item">
+                        <span class="label">SCORE</span>
+                        <span id="final-score" class="big-num">0</span>
+                    </div>
+                    <div class="res-item">
+                        <span class="label">COINS</span>
+                        <span id="final-coins" class="big-num accent">0</span>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button id="restart-btn" class="primary-btn">REBOOT</button>
+                    <button id="shop-open-btn-2" class="secondary-btn">ARMORY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script>
+        // PWA Installation Logic
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBtn.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        installBtn.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+{
+    "name": "Neon Arrow: Infinity",
+    "short_name": "NeonArrow",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#050505",
+    "theme_color": "#00ffff",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "icon.svg",
+            "type": "image/svg+xml",
+            "sizes": "192x192 512x512"
+        }
+    ]
+}
